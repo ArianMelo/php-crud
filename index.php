@@ -1,6 +1,11 @@
 <?php 
+
+// Conexão
+include_once 'php_action/db_connect.php';
 // Header
 include_once 'includes/header.php';
+// Message
+include_once 'includes/message.php';
 ?>
 
 <div class="row">
@@ -15,13 +20,23 @@ include_once 'includes/header.php';
           <th>Idade:</th>
         </tr>
       </thead>
+
       <tbody>
-        <td>Rodrigo</td>
-        <td>Oliveira</td>
-        <td>rodrigosantosweb@gmail.com</td>
-        <td>25</td>
-        <td><a href="" class="btn-floating orange"><i class="material-icons">edit</i></a></td>
-        <td><a href="" class="btn-floating red"><i class="material-icons">delete</i></a></td>
+        <?php
+        $sql = "SELECT * FROM clientes";
+        $resultado = mysqli_query($connect, $sql);
+        while ($dados = mysqli_fetch_array($resultado)):
+        ?>
+          <tr>
+          <td><?php echo $dados['nome']; ?></td>
+          <td><?php echo $dados['sobrenome']; ?></td>
+          <td><?php echo $dados['email']; ?></td>
+          <td><?php echo $dados['idade']; ?></td>
+          <td><a href="" class="btn-floating orange"><i class="material-icons">edit</i></a></td>
+          <td><a href="" class="btn-floating red"><i class="material-icons">delete</i></a></td>
+        </tr>
+        <?php endwhile; ?>
+        
       </tbody>
     </table>
     <br>
